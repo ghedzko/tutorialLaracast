@@ -86,10 +86,7 @@
                             <ul>
                                 <li><a href="/notas">Notas</a></li>
                                 <li><a href="/projects">Proyectos</a></li>
-                                <li><a>Grid</a></li>
-                                <li><a>Elements</a></li>
-                                <li><a>Components</a></li>
-                                <li><a>Layout</a></li>
+
                             </ul>
                         </div>
                     </nav>
