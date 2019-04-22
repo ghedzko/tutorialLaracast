@@ -3,8 +3,9 @@
 namespace NotasSys\Http\Controllers;
 use Illuminate\Http\Request;
 use NotasSys\Nota;
+use NotasSys\Contacto;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\DB;
 
 class NotaController extends Controller
 {
@@ -19,8 +20,9 @@ class NotaController extends Controller
     public function create()
     {
         $hoy = \Carbon\Carbon::now()->locale('es_AR')->isoFormat('DD/MM/YYYY');
-
-       return view('notas.create')->with('hoy', $hoy);
+        $contactos = DB::table('contactos')->orderBy('nombre')->get();
+        $max_nota= Nota::all()->max('id')+1;
+       return view('notas.create')->with('hoy', $hoy)->with('contactos',$contactos)->with('max_nota',$max_nota);
     }
 
 
@@ -31,6 +33,7 @@ class NotaController extends Controller
                 'asunto' => 'required',
                 'descripcion'=> 'required',
                 'fecha'=>'required|date',
+                'contacto_id'=>'required',
                 'adjunto'=>'file|nullable'
 
         ]);
@@ -51,6 +54,7 @@ class NotaController extends Controller
 
         // Nota::create(request(['numero','asunto','descripcion','fecha','adjunto']));
         $nota->numero=request('numero');
+        $nota->contacto_id=request('contacto_id');
         $nota->asunto=request('asunto');
         $nota->descripcion=request('descripcion');
         $nota->fecha=request('fecha');

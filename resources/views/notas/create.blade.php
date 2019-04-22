@@ -2,27 +2,6 @@
 
 @section('content')
 <section class="hero is-primary">
-	<div id="navbarMenuHeroB" class="navbar-menu">
-          <div class="navbar-end">
-            <a class="navbar-item is-active">
-              Home
-            </a>
-            <a class="navbar-item">
-              Examples
-            </a>
-            <a class="navbar-item">
-              Documentation
-            </a>
-            <span class="navbar-item">
-              <a class="button is-info is-inverted">
-                <span class="icon">
-                  <i class="fab fa-github"></i>
-                </span>
-                <span>Download</span>
-              </a>
-            </span>
-          </div>
-        </div>
   <div class="hero-body">
     <div class="container">
       <h1 class="title">
@@ -30,33 +9,8 @@
       </h1>
     </div>
   </div>
-  <div class="hero-foot">
-    <nav class="tabs is-boxed is-fullwidth is-inverted">
-      <div class="container">
-        <ul>
-          <li class="is-active">
-            <a>Overview</a>
-          </li>
-          <li>
-            <a>Modifiers</a>
-          </li>
-          <li>
-            <a>Grid</a>
-          </li>
-          <li>
-            <a>Elements</a>
-          </li>
-          <li>
-            <a>Components</a>
-          </li>
-          <li>
-            <a>Layout</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-</section>
+
+
 </section>
 <section class="hero is-clearfix">
 <form method="POST" action="/notas" enctype="multipart/form-data">
@@ -70,8 +24,9 @@
                     type="text"
                     class="input {{ $errors->has('numero') ? 'is-danger' : '' }}"
                     name="numero"
-                    value="{{ old('numero') }}"
-                    required>
+                    value="{{  $max_nota }}"
+                    required
+                    tabindex="1" >
             </div>
         </div>
 
@@ -84,9 +39,23 @@
                     class="input {{ $errors->has('asunto') ? 'is-danger' : '' }}"
                     name="asunto"
                     value="{{ old('asunto') }}"
-                    required>
+                    required
+                    tabindex="2" 
+                    select>
             </div>
         </div>
+            <div class="select">
+              <select name="contacto_id" 
+                    class="form-control"
+                    value="{{ old('contacto_id') }}"
+                    required
+                    tabindex="3" >
+                @foreach($contactos as $contacto)
+                <option value="{{ $contacto->id }}">{{ $contacto->nombre }} </option>
+                <!-- <option>{{ $contacto->nombre }}</option> -->
+                @endforeach
+              </select>
+            </div>
 
         <div class="field">
             <label class="label" for="nombre">Descripción</label>
